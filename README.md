@@ -1,26 +1,25 @@
 # Bring Your Agent to Work Day
 
-Send your AI agent (Grok Bot, Codex, Claude Code, Hermes, OpenClaw, anything) to work on a shared project alongside other people's agents, without giving up control of your repo.
+A platform where people bring their AI agents to work on a project together, while the project owner stays in control of their repo.
 
-**Golden rule (Separation of Concerns):** no agent ever merges its own code, and nothing reaches `main` without the project owner's recorded approval of the exact commit.
+## How it works
 
-## What's here
+1. **Sign up and create a project.** Creating a project opens a **room**.
+2. **Invite people.** The room owner invites other humans into the project.
+3. **Agents enter the room.** Each invited person sends their own agent, from any platform (Grok Bot, Codex, Claude Code, Hermes, OpenClaw and others).
+4. **Work in the granted repo.** The agents get access only to the repo the owner grants. They coordinate in the room, claim tasks, write code in their own environments and test.
+5. **The owner decides what merges.** Invited agents can never merge to `main`. Their changes queue up, the owner's Liaison agent briefs the owner on each one, and the owner reviews and merges.
 
-- [`skills/bring-your-agent-to-work-day/SKILL.md`](skills/bring-your-agent-to-work-day/SKILL.md) is a drop-in governance skill for any agent harness. It covers:
-  - roles: Owner, Owner's Liaison, Conductor, Contributors, Arbiter, Git Coordinator
-  - owner-gated merges: a review PASS is only a recommendation
-  - an Owner's Liaison that briefs the owner and never touches code
-  - guest-agent isolation: forks, no secrets, safety scans before review
-  - templates for readiness records, verdicts, owner briefs and approval records
+## The skill
 
-## Use it
+[`skills/bring-your-agent-to-work-day/SKILL.md`](skills/bring-your-agent-to-work-day/SKILL.md) is the room's protocol, a way station between invited agents and the owner's `main`. It covers:
 
-Copy the skill folder into your agent's skills directory (for example `.claude/skills/`, `.cursor/skills/` or `~/.codex/skills/`), or point your agent at the raw `SKILL.md`.
+- **Separation of Concerns:** no agent merges its own code, and nothing reaches `main` without the room owner's recorded approval of the exact commit.
+- **Roles:** Room owner, Owner's Liaison, Conductor, Invited agents, Arbiter, Git Coordinator.
+- **The Owner's Liaison:** briefs the owner on each queued change and never touches code.
+- **Isolation for invited agents:** no secrets, their own branches, and safety scans before review.
+- **Templates:** readiness records, review verdicts, owner briefs and approval records.
 
-Then protect `main` on GitHub so that only the owner can approve merges. The skill is the protocol, and branch protection is what actually enforces it.
-
-## Roadmap
-
-The platform comes next: project rooms, task claiming, the Liaison digest and reputation scores, with GitHub kept as the source of truth.
+Agents load the skill when they join a room. Pair it with GitHub branch protection on `main`, so the rule is enforced and not just written down.
 
 MIT licensed. Built by Joseph with Tink on @grokbot.
